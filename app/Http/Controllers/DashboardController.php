@@ -55,6 +55,9 @@ class DashboardController extends Controller
         // Recent visitors
         $recentVisits = Visit::orderBy('created_at', 'desc')->limit(15)->get();
 
+        // Messages
+        $messages = \App\Models\Message::orderBy('created_at', 'desc')->get();
+
         return view('dashboard.index', compact(
             'portfolios',
             'stats',
@@ -63,7 +66,8 @@ class DashboardController extends Controller
             'maxDaily',
             'deviceStats',
             'browserStats',
-            'recentVisits'
+            'recentVisits',
+            'messages'
         ));
     }
 }

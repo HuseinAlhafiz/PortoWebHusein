@@ -101,6 +101,9 @@
                             <option value="project" {{ $portfolio->type == 'project' ? 'selected' : '' }}>📁 Project</option>
                             <option value="certificate" {{ $portfolio->type == 'certificate' ? 'selected' : '' }}>🎓 Certificate</option>
                             <option value="techstack" {{ $portfolio->type == 'techstack' ? 'selected' : '' }}>⚡ Tech Stack</option>
+                            <option value="blog" {{ $portfolio->type == 'blog' ? 'selected' : '' }}>📝 Blog</option>
+                            <option value="experience" {{ $portfolio->type == 'experience' ? 'selected' : '' }}>💼 Experience</option>
+                            <option value="education" {{ $portfolio->type == 'education' ? 'selected' : '' }}>🏫 Education</option>
                         </select>
                         @error('type') <span class="error-msg">{{ $message }}</span> @enderror
                     </div>
@@ -110,6 +113,8 @@
                             <optgroup label="Project"><option value="Project" {{ $portfolio->category == 'Project' ? 'selected' : '' }}>Project</option><option value="Design" {{ $portfolio->category == 'Design' ? 'selected' : '' }}>Design</option><option value="Editing" {{ $portfolio->category == 'Editing' ? 'selected' : '' }}>Editing</option></optgroup>
                             <optgroup label="Certificate"><option value="Bootcamp" {{ $portfolio->category == 'Bootcamp' ? 'selected' : '' }}>Bootcamp</option><option value="Course" {{ $portfolio->category == 'Course' ? 'selected' : '' }}>Course</option><option value="Certification" {{ $portfolio->category == 'Certification' ? 'selected' : '' }}>Certification</option></optgroup>
                             <optgroup label="Tech Stack"><option value="Tool" {{ $portfolio->category == 'Tool' ? 'selected' : '' }}>Tool</option><option value="Language" {{ $portfolio->category == 'Language' ? 'selected' : '' }}>Language</option><option value="Framework" {{ $portfolio->category == 'Framework' ? 'selected' : '' }}>Framework</option></optgroup>
+                            <optgroup label="Experience"><option value="Work" {{ $portfolio->category == 'Work' ? 'selected' : '' }}>Work</option><option value="Organization" {{ $portfolio->category == 'Organization' ? 'selected' : '' }}>Organization</option></optgroup>
+                            <optgroup label="Education"><option value="Degree" {{ $portfolio->category == 'Degree' ? 'selected' : '' }}>Degree</option><option value="School" {{ $portfolio->category == 'School' ? 'selected' : '' }}>School</option></optgroup>
                         </select>
                         @error('category') <span class="error-msg">{{ $message }}</span> @enderror
                     </div>

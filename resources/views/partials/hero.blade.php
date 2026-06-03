@@ -7,6 +7,7 @@
             <p class="hero-desc">Portofolio ini menampilkan proyek dan kontribusi saya sebagai pengembang di bidang IT Project Management dan Teknologi.</p>
             <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 0.8rem;">
                 <a href="#contact" class="hero-btn">Hubungi Saya</a>
+                <a href="{{ route('download.cv') }}" class="hero-btn-outline" style="background: rgba(168, 85, 247, 0.1); border-color: #a855f7; color: #a855f7;">Download CV</a>
                 <a href="https://linktr.ee/huseinalhafiz" target="_blank" class="hero-btn-outline">Linktree Porto</a>
             </div>
         </div>

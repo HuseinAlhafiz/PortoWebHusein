@@ -214,6 +214,9 @@
         .pcard-type-badge.project { background: rgba(96,165,250,0.2); color: #93c5fd; }
         .pcard-type-badge.certificate { background: rgba(167,139,250,0.2); color: #c4b5fd; }
         .pcard-type-badge.techstack { background: rgba(52,211,153,0.2); color: #6ee7b7; }
+        .pcard-type-badge.blog { background: rgba(244,114,182,0.2); color: #f9a8d4; }
+        .pcard-type-badge.experience { background: rgba(251,146,60,0.2); color: #fdba74; }
+        .pcard-type-badge.education { background: rgba(56,189,248,0.2); color: #7dd3fc; }
         .pcard-featured {
             position: absolute; top: 10px; right: 10px;
             font-size: 0.6rem; font-weight: 700; padding: 0.2rem 0.5rem;
@@ -369,8 +372,30 @@
                 Tech Stack
                 <span class="badge">{{ $portfolios->where('type', 'techstack')->count() }}</span>
             </button>
+            <button class="nav-link" data-filter="blog" onclick="filterPortfolio('blog', this)">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                Blog / Publikasi
+                <span class="badge">{{ $portfolios->where('type', 'blog')->count() }}</span>
+            </button>
+            <button class="nav-link" data-filter="experience" onclick="filterPortfolio('experience', this)">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+                Experience
+                <span class="badge">{{ $portfolios->where('type', 'experience')->count() }}</span>
+            </button>
+            <button class="nav-link" data-filter="education" onclick="filterPortfolio('education', this)">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+                Education
+                <span class="badge">{{ $portfolios->where('type', 'education')->count() }}</span>
+            </button>
 
             <span class="nav-section">Links</span>
+            <button class="nav-link" onclick="document.querySelector('[data-dtab=\'messages\']').click()">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                Inbox Pesan
+                @if($messages->where('is_read', false)->count() > 0)
+                    <span class="badge" style="background:var(--danger);color:white;">{{ $messages->where('is_read', false)->count() }}</span>
+                @endif
+            </button>
             <a href="/" class="nav-link" target="_blank">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                 View Site
@@ -414,7 +439,7 @@
             @endif
 
             <!-- Dashboard Tabs -->
-            <div class="dash-tabs">
+            <div class="dash-tabs" style="max-width: 480px;">
                 <button class="dash-tab active" data-dtab="analytics">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
                     Analytics
@@ -422,6 +447,13 @@
                 <button class="dash-tab" data-dtab="portfolio">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
                     Portfolio
+                </button>
+                <button class="dash-tab" data-dtab="messages" onclick="fetch('{{ route('messages.index') }}')">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    Messages
+                    @if($messages->where('is_read', false)->count() > 0)
+                        <span style="background:var(--danger);color:white;border-radius:50%;width:18px;height:18px;display:flex;align-items:center;justify-content:center;font-size:0.6rem;">{{ $messages->where('is_read', false)->count() }}</span>
+                    @endif
                 </button>
             </div>
 
@@ -491,6 +523,9 @@
                     <button class="filter-pill" onclick="filterCards('project', this)">📁 Projects</button>
                     <button class="filter-pill" onclick="filterCards('certificate', this)">🎓 Certificates</button>
                     <button class="filter-pill" onclick="filterCards('techstack', this)">⚡ Tech Stack</button>
+                    <button class="filter-pill" onclick="filterCards('blog', this)">📝 Blog</button>
+                    <button class="filter-pill" onclick="filterCards('experience', this)">💼 Experience</button>
+                    <button class="filter-pill" onclick="filterCards('education', this)">🏫 Education</button>
                 </div>
 
                 @if($portfolios->count() > 0)
@@ -558,6 +593,40 @@
                 </div>
                 @endif
             </div>
+
+            <!-- TAB: MESSAGES -->
+            <div class="dash-tab-content" id="dtab-messages">
+                <div class="visitors-table-wrap">
+                    <div class="visitors-table-header">
+                        <h3><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> Inbox Pesan</h3>
+                        <span class="count-badge">Total {{ $messages->count() }}</span>
+                    </div>
+                    @if($messages->count() > 0)
+                    <table class="visitors-table"><thead><tr><th>Tanggal</th><th>Nama</th><th>Email</th><th>Subjek</th><th>Pesan</th><th>Aksi</th></tr></thead><tbody>
+                        @foreach($messages as $msg)
+                        <tr>
+                            <td style="font-size:0.7rem;color:var(--text-muted);">{{ $msg->created_at->format('d M, H:i') }}</td>
+                            <td style="font-weight:600; {{ !$msg->is_read ? 'color:white;' : '' }}">{{ $msg->name }}</td>
+                            <td><a href="mailto:{{ $msg->email }}" style="color:var(--accent);">{{ $msg->email }}</a></td>
+                            <td>{{ Str::limit($msg->subject ?: '-', 20) }}</td>
+                            <td style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="{{ $msg->message }}">{{ $msg->message }}</td>
+                            <td>
+                                <form method="POST" action="{{ route('messages.destroy', $msg) }}" onsubmit="return confirm('Hapus pesan?')">
+                                    @csrf @method('DELETE')
+                                    <button type="submit" class="btn-danger" style="padding:0.2rem 0.5rem; border-radius:4px; font-size:0.7rem; border:none; cursor:pointer;">Hapus</button>
+                                </form>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody></table>
+                    @else
+                    <div style="padding:3rem;text-align:center;color:var(--text-muted);">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:50px;height:50px;opacity:0.3;margin-bottom:1rem;"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                        <p>Belum ada pesan masuk.</p>
+                    </div>
+                    @endif
+                </div>
+            </div>
         </main>
     </div>
 
@@ -580,6 +649,9 @@
                                 <option value="project">📁 Project</option>
                                 <option value="certificate">🎓 Certificate</option>
                                 <option value="techstack">⚡ Tech Stack</option>
+                                <option value="blog">📝 Blog</option>
+                                <option value="experience">💼 Experience</option>
+                                <option value="education">🏫 Education</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -589,6 +661,8 @@
                                 <optgroup label="Project"><option value="Project">Project</option><option value="Design">Design</option><option value="Editing">Editing</option></optgroup>
                                 <optgroup label="Certificate"><option value="Bootcamp">Bootcamp</option><option value="Course">Course</option><option value="Certification">Certification</option></optgroup>
                                 <optgroup label="Tech Stack"><option value="Tool">Tool</option><option value="Language">Language</option><option value="Framework">Framework</option></optgroup>
+                                <optgroup label="Experience"><option value="Work">Work</option><option value="Organization">Organization</option></optgroup>
+                                <optgroup label="Education"><option value="Degree">Degree</option><option value="School">School</option></optgroup>
                             </select>
                         </div>
                     </div>

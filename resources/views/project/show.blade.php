@@ -51,7 +51,7 @@
         font-size: 0.68rem; font-weight: 700; text-transform: uppercase;
         letter-spacing: 1.5px; padding: 0.3rem 0.8rem; border-radius: 6px;
         margin-bottom: 1rem;
-        background: rgba(255,255,255,0.05); color: var(--text-dim);
+        background: var(--bg-card); color: var(--text-dim);
         border: 1px solid var(--border);
     }
     
@@ -59,9 +59,7 @@
         font-family: var(--font-display);
         font-size: 3rem; font-weight: 800; line-height: 1.1;
         margin-bottom: 1rem;
-        background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.7) 100%);
-        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        background-clip: text;
+        color: var(--text);
     }
 
     .pd-desc {
@@ -78,8 +76,8 @@
         padding: 0.8rem 1.5rem; border-radius: 12px;
         font-size: 0.88rem; font-weight: 600;
         font-family: var(--font); cursor: pointer; transition: all 0.3s;
-        background: rgba(255,255,255,0.02); color: #fff;
-        border: 1px solid rgba(255,255,255,0.08);
+        background: var(--bg-card); color: var(--text);
+        border: 1px solid var(--border);
     }
     .btn-pd svg { width: 18px; height: 18px; color: #ef4444; }
     .btn-pd:hover { border-color: rgba(239, 68, 68, 0.5); background: rgba(239, 68, 68, 0.05); transform: translateY(-2px); }
@@ -116,8 +114,8 @@
 
     .pd-image {
         width: 100%; border-radius: 12px; overflow: hidden;
-        border: 1px solid rgba(255,255,255,0.05);
-        background: rgba(0,0,0,0.2); aspect-ratio: 16/9;
+        border: 1px solid var(--border);
+        background: var(--bg-card); aspect-ratio: 16/9;
         display: flex; align-items: center; justify-content: center;
     }
     .pd-image img { width: 100%; height: 100%; object-fit: cover; }
@@ -137,11 +135,11 @@
         display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem;
     }
     .summary-card {
-        background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05);
+        background: var(--bg-card); border: 1px solid var(--border);
         border-radius: 12px; padding: 1.2rem; display: flex; align-items: center; gap: 1rem;
         transition: all 0.3s;
     }
-    .summary-card:hover { border-color: rgba(239, 68, 68, 0.3); background: rgba(255,255,255,0.05); }
+    .summary-card:hover { border-color: rgba(239, 68, 68, 0.3); background: rgba(239, 68, 68, 0.05); }
     .sc-icon {
         width: 48px; height: 48px; border-radius: 12px;
         background: rgba(239, 68, 68, 0.05); color: #ef4444;
@@ -149,7 +147,7 @@
     }
     .sc-icon svg { width: 22px; height: 22px; }
     .sc-text {}
-    .sc-text h4 { font-size: 1.4rem; font-weight: 700; color: #fff; line-height: 1.2; margin-bottom: 0.2rem; }
+    .sc-text h4 { font-size: 1.4rem; font-weight: 700; color: var(--text); line-height: 1.2; margin-bottom: 0.2rem; }
     .sc-text span { font-size: 0.75rem; color: var(--text-dim); }
 
     /* Left: Technologies */
@@ -185,7 +183,7 @@
         font-size: 0.88rem; color: var(--text-dim); line-height: 1.6;
         transition: background 0.3s; cursor: default;
     }
-    .feature-list li:hover { background: rgba(255,255,255,0.04); color: #fff; }
+    .feature-list li:hover { background: var(--bg); color: var(--text); }
     .feature-list li::before {
         content: ''; width: 6px; height: 6px; flex-shrink: 0;
         background: #ef4444; border-radius: 50%;
@@ -208,8 +206,6 @@
 @endpush
 
 @section('content')
-    @include('partials.navbar')
-
     <!-- Hero / Header -->
     <section class="project-detail-hero">
         <div class="pd-container">
@@ -348,6 +344,4 @@
             </div>
         </div>
     </section>
-
-    @include('partials.footer')
 @endsection

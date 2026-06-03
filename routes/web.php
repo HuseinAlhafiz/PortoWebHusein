@@ -7,7 +7,29 @@ use App\Models\Portfolio;
 use App\Models\Visit;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\MessageController;
+
 // Public
+Route::post('/contact', [MessageController::class, 'store'])->name('contact.store');
+
+Route::get('/download-cv', function () {
+    Visit::create([
+        'ip_address' => request()->ip(),
+        'user_agent' => request()->userAgent(),
+        'page' => '/download-cv',
+        'referrer' => request()->headers->get('referer'),
+    ]);
+    
+    $path1 = public_path('files/CV_HuseinAlhafiz.pdf');
+    $path2 = public_path('files/CV_Husein_Alhafiz.pdf');
+    if (file_exists($path1)) {
+        return response()->download($path1);
+    } elseif (file_exists($path2)) {
+        return response()->download($path2);
+    }
+    return redirect('/')->with('error', 'CV file is not available yet.');
+})->name('download.cv');
+
 Route::get('/', function () {
     // Track visitor
     Visit::create([
@@ -20,8 +42,11 @@ Route::get('/', function () {
     $projects = Portfolio::where('type', 'project')->orderBy('sort_order')->orderBy('created_at', 'desc')->get();
     $certificates = Portfolio::where('type', 'certificate')->orderBy('sort_order')->orderBy('created_at', 'desc')->get();
     $techstacks = Portfolio::where('type', 'techstack')->orderBy('sort_order')->orderBy('created_at', 'desc')->get();
+    $blogs = Portfolio::where('type', 'blog')->orderBy('sort_order')->orderBy('created_at', 'desc')->get();
+    $experiences = Portfolio::where('type', 'experience')->orderBy('sort_order')->orderBy('created_at', 'desc')->get();
+    $educations = Portfolio::where('type', 'education')->orderBy('sort_order')->orderBy('created_at', 'desc')->get();
     $allPortfolios = Portfolio::orderBy('sort_order')->orderBy('created_at', 'desc')->get();
-    return view('home', compact('projects', 'certificates', 'techstacks', 'allPortfolios'));
+    return view('home', compact('projects', 'certificates', 'techstacks', 'blogs', 'experiences', 'educations', 'allPortfolios'));
 });
 
 // Public Project Detail
@@ -42,4 +67,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/dashboard/portfolio/{portfolio}', [PortfolioController::class, 'update'])->name('portfolio.update');
     Route::delete('/dashboard/portfolio/{portfolio}', [PortfolioController::class, 'destroy'])->name('portfolio.destroy');
     Route::post('/dashboard/portfolio/backup', [PortfolioController::class, 'backup'])->name('portfolio.backup');
+
+    Route::get('/dashboard/messages', [MessageController::class, 'index'])->name('messages.index');
+    Route::delete('/dashboard/messages/{message}', [MessageController::class, 'destroy'])->name('messages.destroy');
 });

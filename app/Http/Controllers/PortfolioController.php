@@ -28,7 +28,7 @@ class PortfolioController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'type' => 'required|in:project,certificate,techstack',
+            'type' => 'required|in:project,certificate,techstack,blog,experience,education',
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
             'category' => 'required|string|max:100',
@@ -81,7 +81,7 @@ class PortfolioController extends Controller
     public function update(Request $request, Portfolio $portfolio)
     {
         $validated = $request->validate([
-            'type' => 'required|in:project,certificate,techstack',
+            'type' => 'required|in:project,certificate,techstack,blog,experience,education',
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
             'category' => 'required|string|max:100',

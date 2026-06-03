@@ -1,3 +1,61 @@
+/* ========== CSS VARIABLES (Apple Style Dark Mode) ========== */
+:root {
+    --bg: var(--bg-primary);
+    --bg-card: var(--bg-primary);
+    --text: var(--text-primary);
+    --text-dim: var(--text-secondary);
+    --border: var(--border-color);
+    --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-display: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+    --bg-primary: #ffffff;
+    --bg-secondary: #f9fafb;
+    --bg-alt: #374151; /* Dark Gray for some sections in light mode */
+    --bg-dark: #111827; /* Dark background */
+    --bg-hover: #f3f4f6;
+    
+    --text-primary: #111827;
+    --text-secondary: #6b7280;
+    --text-muted: #374151;
+    --text-lighter: #9ca3af;
+    --text-inverse: #ffffff;
+    --text-inverse-muted: #f3f4f6;
+    
+    --border-color: #e5e7eb;
+    --border-strong: #d1d5db;
+    
+    --accent: #7c3aed;
+    --accent-hover: #6d28d9;
+}
+
+[data-theme="dark"] {
+    --bg: var(--bg-primary);
+    --bg-card: var(--bg-hover);
+    --text: var(--text-primary);
+    --text-dim: var(--text-secondary);
+    --border: var(--border-color);
+
+    /* Apple Dark Mode Palette */
+    --bg-primary: #000000;
+    --bg-secondary: #1c1c1e;
+    --bg-alt: #1c1c1e; 
+    --bg-dark: #1c1c1e;
+    --bg-hover: #2c2c2e;
+    
+    --text-primary: #f5f5f7;
+    --text-secondary: #86868b;
+    --text-muted: #86868b;
+    --text-lighter: #6e6e73;
+    --text-inverse: #f5f5f7;
+    --text-inverse-muted: #86868b;
+    
+    --border-color: #38383a;
+    --border-strong: #48484a;
+    
+    --accent: #a855f7; /* Slightly brighter purple for dark mode */
+    --accent-hover: #c084fc;
+}
+
 /* ========== RESET & BASE ========== */
 *, *::before, *::after {
     margin: 0;
@@ -11,8 +69,8 @@ html {
 
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    background-color: #ffffff;
-    color: #111827;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
     line-height: 1.6;
     overflow-x: hidden;
 }
@@ -38,11 +96,11 @@ img { max-width: 100%; display: block; }
 .section-title {
     font-size: 2.5rem;
     font-weight: 800;
-    color: #111827;
+    color: var(--text-primary);
     margin-bottom: 1rem;
 }
 .section-subtitle {
-    color: #6b7280;
+    color: var(--text-secondary);
     font-size: 1rem;
 }
 
@@ -57,8 +115,8 @@ img { max-width: 100%; display: block; }
     align-items: center;
     justify-content: space-between;
     padding: 1.5rem 3rem;
-    background: #ffffff;
-    border-bottom: 1px solid #e5e7eb;
+    background-color: var(--bg-primary);
+    border-bottom: 1px solid var(--border-color);
 }
 
 .nav-logo {
@@ -73,17 +131,17 @@ img { max-width: 100%; display: block; }
     align-items: center;
     font-size: 0.9rem;
     font-weight: 500;
-    color: #374151;
+    color: var(--text-muted);
 }
 
 .nav-links a:hover {
-    color: #111827;
+    color: var(--text-primary);
 }
 
 /* ========== HERO SECTION (Image 1) ========== */
 .hero {
     padding: 12rem 0 8rem;
-    background: #ffffff;
+    background-color: var(--bg-primary);
 }
 
 .hero-wrapper {
@@ -107,25 +165,25 @@ img { max-width: 100%; display: block; }
 .hero-name {
     font-size: 3.5rem;
     font-weight: 800;
-    color: #111827;
+    color: var(--text-primary);
     line-height: 1.2;
     margin-bottom: 0.5rem;
 }
 
 .hero-role {
     font-size: 1rem;
-    color: #6b7280;
+    color: var(--text-secondary);
     margin-bottom: 1.5rem;
 }
 
 .hero-role strong {
-    color: #111827;
+    color: var(--text-primary);
     font-weight: 700;
     text-decoration: underline;
 }
 
 .hero-desc {
-    color: #6b7280;
+    color: var(--text-secondary);
     font-size: 0.95rem;
     line-height: 1.7;
     margin-bottom: 2rem;
@@ -134,7 +192,7 @@ img { max-width: 100%; display: block; }
 
 .hero-btn {
     background: #7c3aed;
-    color: #ffffff;
+    color: var(--text-inverse);
     padding: 0.8rem 2rem;
     border-radius: 9999px;
     font-weight: 600;
@@ -150,8 +208,8 @@ img { max-width: 100%; display: block; }
 
 .hero-btn-outline {
     background: transparent;
-    color: #111827;
-    border: 1px solid #d1d5db;
+    color: var(--text-primary);
+    border: 1px solid var(--border-strong);
     padding: 0.8rem 2rem;
     border-radius: 9999px;
     font-weight: 600;
@@ -198,8 +256,8 @@ img { max-width: 100%; display: block; }
 
 .floating-badge {
     position: absolute;
-    background-color: #111827;
-    color: #ffffff;
+    background-color: var(--bg-dark);
+    color: var(--text-inverse);
     padding: 0.8rem 1.8rem;
     border-radius: 9999px;
     font-size: 1rem;
@@ -237,8 +295,8 @@ img { max-width: 100%; display: block; }
 /* ========== ABOUT SECTION (Image 2) ========== */
 .about {
     padding: 6rem 0;
-    background: #ffffff;
-    border-top: 1px solid #e5e7eb;
+    background-color: var(--bg-primary);
+    border-top: 1px solid var(--border-color);
 }
 
 .about-wrapper {
@@ -250,26 +308,26 @@ img { max-width: 100%; display: block; }
 .about-title {
     font-size: 2.2rem;
     font-weight: 800;
-    color: #111827;
+    color: var(--text-primary);
     line-height: 1.3;
     margin-bottom: 1.5rem;
 }
 
 .about-text {
-    color: #6b7280;
+    color: var(--text-secondary);
     font-size: 1rem;
     line-height: 1.8;
     margin-bottom: 2.5rem;
 }
 
 .about-text strong {
-    color: #374151;
+    color: var(--text-muted);
 }
 
 .about-subtitle {
     font-size: 1.8rem;
     font-weight: 800;
-    color: #111827;
+    color: var(--text-primary);
     margin-bottom: 1rem;
 }
 
@@ -281,12 +339,12 @@ img { max-width: 100%; display: block; }
 .social-icons a {
     width: 40px;
     height: 40px;
-    border: 1px solid #e5e7eb;
+    border: 1px solid var(--border-color);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #111827;
+    color: var(--text-primary);
 }
 
 .social-icons a:hover {
@@ -301,8 +359,8 @@ img { max-width: 100%; display: block; }
 /* ========== PORTFOLIO SECTION (Image 3) ========== */
 .portfolio {
     padding: 6rem 0;
-    background: #f9fafb;
-    border-top: 1px solid #e5e7eb;
+    background-color: var(--bg-secondary);
+    border-top: 1px solid var(--border-color);
     text-align: center;
 }
 
@@ -315,11 +373,11 @@ img { max-width: 100%; display: block; }
 }
 
 .portfolio-card {
-    background: #ffffff;
+    background-color: var(--bg-primary);
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-    border: 1px solid #e5e7eb;
+    border: 1px solid var(--border-color);
     transition: transform 0.3s;
 }
 
@@ -331,7 +389,7 @@ img { max-width: 100%; display: block; }
     width: 100%;
     height: 250px;
     object-fit: cover;
-    border-bottom: 1px solid #e5e7eb;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .portfolio-content {
@@ -341,12 +399,12 @@ img { max-width: 100%; display: block; }
 .portfolio-card h3 {
     font-size: 1.25rem;
     font-weight: 700;
-    color: #111827;
+    color: var(--text-primary);
     margin-bottom: 0.5rem;
 }
 
 .portfolio-card a.link-outs {
-    color: #6b7280;
+    color: var(--text-secondary);
     font-size: 0.9rem;
     text-decoration: underline;
     display: inline-block;
@@ -354,7 +412,7 @@ img { max-width: 100%; display: block; }
 }
 
 .portfolio-card p {
-    color: #6b7280;
+    color: var(--text-secondary);
     font-size: 0.95rem;
     line-height: 1.6;
 }
@@ -362,9 +420,9 @@ img { max-width: 100%; display: block; }
 /* ========== EDUCATION SECTION (Image 4) ========== */
 .education {
     padding: 6rem 0;
-    background: #374151; /* Dark Gray */
+    background-color: var(--bg-alt); /* Dark Gray */
     text-align: center;
-    color: #ffffff;
+    color: var(--text-inverse);
 }
 
 .education .section-label {
@@ -372,11 +430,11 @@ img { max-width: 100%; display: block; }
 }
 
 .education .section-title {
-    color: #ffffff;
+    color: var(--text-inverse);
 }
 
 .education .section-subtitle {
-    color: #9ca3af;
+    color: var(--text-lighter);
     margin-bottom: 3rem;
 }
 
@@ -402,14 +460,14 @@ img { max-width: 100%; display: block; }
 /* ========== EXPERIENCE SECTION (Image 5) ========== */
 .experience {
     padding: 6rem 0;
-    background: #ffffff;
+    background-color: var(--bg-primary);
     text-align: center;
 }
 
 /* ========== BLOG SECTION (Image 6) ========== */
 .blog {
     padding: 6rem 0;
-    background: #f9fafb;
+    background-color: var(--bg-secondary);
     text-align: center;
 }
 .blog-grid {
@@ -420,11 +478,11 @@ img { max-width: 100%; display: block; }
     text-align: left;
 }
 .blog-card {
-    background: #ffffff;
+    background-color: var(--bg-primary);
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-    border: 1px solid #e5e7eb;
+    border: 1px solid var(--border-color);
 }
 .blog-image {
     width: 100%;
@@ -437,7 +495,7 @@ img { max-width: 100%; display: block; }
 .blog-content h3 {
     font-size: 1.1rem;
     font-weight: 700;
-    color: #111827;
+    color: var(--text-primary);
     margin-bottom: 1rem;
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -445,7 +503,7 @@ img { max-width: 100%; display: block; }
     overflow: hidden;
 }
 .blog-content p {
-    color: #6b7280;
+    color: var(--text-secondary);
     font-size: 0.9rem;
     line-height: 1.6;
     display: -webkit-box;
@@ -457,7 +515,7 @@ img { max-width: 100%; display: block; }
 /* ========== CONTACT SECTION (Image 7) ========== */
 .contact {
     padding: 6rem 0;
-    background: #ffffff;
+    background-color: var(--bg-primary);
     text-align: center;
 }
 .contact-icons {
@@ -469,7 +527,7 @@ img { max-width: 100%; display: block; }
 .contact-icons a {
     width: 45px;
     height: 45px;
-    border: 1px solid #e5e7eb;
+    border: 1px solid var(--border-color);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -479,8 +537,8 @@ img { max-width: 100%; display: block; }
 
 /* ========== FOOTER (Image 7) ========== */
 .footer {
-    background: #111827; /* Dark background */
-    color: #f3f4f6;
+    background-color: var(--bg-dark); /* Dark background */
+    color: var(--text-inverse-muted);
     padding: 5rem 0 2rem;
 }
 .footer-grid {
@@ -492,7 +550,7 @@ img { max-width: 100%; display: block; }
 .footer-title {
     font-size: 1.5rem;
     font-weight: 800;
-    color: #ffffff;
+    color: var(--text-inverse);
     margin-bottom: 1.5rem;
 }
 .footer-subtitle {
@@ -501,7 +559,7 @@ img { max-width: 100%; display: block; }
     margin-bottom: 0.5rem;
 }
 .footer-text {
-    color: #9ca3af;
+    color: var(--text-lighter);
     font-size: 0.9rem;
     line-height: 1.6;
 }
@@ -516,11 +574,11 @@ img { max-width: 100%; display: block; }
     gap: 0.8rem;
 }
 .footer-links a {
-    color: #9ca3af;
+    color: var(--text-lighter);
     font-size: 0.9rem;
 }
 .footer-links a:hover {
-    color: #ffffff;
+    color: var(--text-inverse);
 }
 .footer-bottom {
     border-top: 1px solid #374151;
@@ -541,10 +599,10 @@ img { max-width: 100%; display: block; }
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #9ca3af;
+    color: var(--text-lighter);
 }
 .footer-copyright {
-    color: #6b7280;
+    color: var(--text-secondary);
     font-size: 0.85rem;
 }
 .footer-copyright span {
@@ -570,16 +628,16 @@ img { max-width: 100%; display: block; }
     margin: 0 auto;
     text-align: left;
     margin-top: 3rem;
-    background: #ffffff;
+    background-color: var(--bg-primary);
     border-radius: 12px;
     padding: 3rem;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-    border: 1px solid #e5e7eb;
+    border: 1px solid var(--border-color);
 }
 .cv-item {
     margin-bottom: 2.5rem;
     padding-bottom: 2.5rem;
-    border-bottom: 1px solid #e5e7eb;
+    border-bottom: 1px solid var(--border-color);
 }
 .cv-item:last-child {
     border-bottom: none;
@@ -595,7 +653,7 @@ img { max-width: 100%; display: block; }
 .cv-title {
     font-size: 1.2rem;
     font-weight: 700;
-    color: #111827;
+    color: var(--text-primary);
 }
 .cv-date {
     font-size: 0.95rem;
@@ -613,7 +671,7 @@ img { max-width: 100%; display: block; }
 .cv-desc {
     list-style-type: disc;
     margin-left: 1.5rem;
-    color: #374151;
+    color: var(--text-muted);
     font-size: 0.95rem;
     line-height: 1.7;
 }
@@ -623,8 +681,8 @@ img { max-width: 100%; display: block; }
 
 /* ========== ACCORDION RESUME ========== */
 .cv-details {
-    background: #ffffff;
-    border: 1px solid #e5e7eb;
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
     border-radius: 12px;
     margin-bottom: 1rem;
     transition: all 0.3s ease;
@@ -655,7 +713,7 @@ img { max-width: 100%; display: block; }
     object-fit: contain;
 }
 .chevron {
-    color: #6b7280;
+    color: var(--text-secondary);
     transition: transform 0.3s ease;
     display: flex;
     align-items: center;

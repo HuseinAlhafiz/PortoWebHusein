@@ -160,6 +160,9 @@
                         <option value="project" {{ old('type') == 'project' ? 'selected' : '' }}>📁 Project</option>
                         <option value="certificate" {{ old('type') == 'certificate' ? 'selected' : '' }}>🎓 Certificate</option>
                         <option value="techstack" {{ old('type') == 'techstack' ? 'selected' : '' }}>⚡ Tech Stack</option>
+                        <option value="blog" {{ old('type') == 'blog' ? 'selected' : '' }}>📝 Blog</option>
+                        <option value="experience" {{ old('type') == 'experience' ? 'selected' : '' }}>💼 Experience</option>
+                        <option value="education" {{ old('type') == 'education' ? 'selected' : '' }}>🏫 Education</option>
                     </select>
                     @error('type') <span class="error-msg">{{ $message }}</span> @enderror
                 </div>
@@ -198,6 +201,16 @@
                                 <option value="Tool" {{ old('category') == 'Tool' ? 'selected' : '' }}>Tool</option>
                                 <option value="Language" {{ old('category') == 'Language' ? 'selected' : '' }}>Language</option>
                                 <option value="Framework" {{ old('category') == 'Framework' ? 'selected' : '' }}>Framework</option>
+                            </optgroup>
+                            <!-- Experience categories -->
+                            <optgroup label="Experience" class="cat-experience">
+                                <option value="Work" {{ old('category') == 'Work' ? 'selected' : '' }}>Work</option>
+                                <option value="Organization" {{ old('category') == 'Organization' ? 'selected' : '' }}>Organization</option>
+                            </optgroup>
+                            <!-- Education categories -->
+                            <optgroup label="Education" class="cat-education">
+                                <option value="Degree" {{ old('category') == 'Degree' ? 'selected' : '' }}>Degree</option>
+                                <option value="School" {{ old('category') == 'School' ? 'selected' : '' }}>School</option>
                             </optgroup>
                         </select>
                         @error('category') <span class="error-msg">{{ $message }}</span> @enderror
