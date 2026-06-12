@@ -48,6 +48,7 @@ jobs:
             **/.git*
             **/.git*/**
             **/node_modules/**
+            **/vendor/**
             **/venv-rembg/**
             **/*.zip
             **/*.py
