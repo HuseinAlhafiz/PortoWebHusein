@@ -1,0 +1,63 @@
+name: Deploy Website to Arenhost
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  web-deploy:
+    name: Deploy Laravel App
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: mbstring, xml, ctype, iconv, mysql, zip
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Composer Dependencies
+        run: composer install --no-dev --optimize-autoloader --no-interaction --no-progress
+
+      - name: Install NPM Dependencies
+        run: npm ci
+
+      - name: Build Assets (Vite)
+        run: npm run build
+
+      - name: Sync Files via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            **/venv-rembg/**
+            **/*.zip
+            **/*.py
+            **/.env*
+            **/tests/**
+            **/phpunit.xml
+            **/.editorconfig
+            **/postcss.config.js
+            **/tailwind.config.js
+            **/vite.config.js
+            **/.DS_Store
+            **/README.md
+            **/vercel.json
+            **/seed_data.php
