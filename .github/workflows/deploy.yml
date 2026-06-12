@@ -1,15 +1,12 @@
 name: Deploy Website to Arenhost
-
 on:
   push:
     branches:
       - main
-
 jobs:
   web-deploy:
     name: Deploy Laravel App
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -35,6 +32,9 @@ jobs:
 
       - name: Build Assets (Vite)
         run: npm run build
+
+      - name: Prepare Cache Clearer
+        run: cp .deploy/clear.php public/clear.php
 
       - name: Sync Files via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
@@ -63,3 +63,7 @@ jobs:
             **/README.md
             **/vercel.json
             **/seed_data.php
+            **/.deploy/**
+
+      - name: Clear Laravel Cache
+        run: curl -s https://huseinalhafiz.my.id/clear.php || true
