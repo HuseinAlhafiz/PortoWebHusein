@@ -5,8 +5,8 @@
             <h2 class="about-title" style="font-size: 2rem; margin-bottom: 1.5rem;">IT Project Management Officer &
                 Lulusan Sistem Informasi</h2>
             <p class="about-text">Nixson Dominikus adalah seorang Pranata Komputer Intern (Magang Kemenaker)
-                di BPMP dan
-                sebelumnya pernah bekerja sebagai IT Project Management Officer di Kemdikbudristek dengan pengalaman
+                di BPMP dansebelumnya pernah bekerja sebagai IT Project Management Officer di Kemdikbudristek dengan
+                pengalaman
                 praktis sebagai Business Analyst, System Analyst, dan Quality Assurance dalam mengelola proyek
                 transformasi digital berskala nasional. Sebagai alumni Sistem Informasi Universitas Gunadarma
                 (2021-2025), fokus utama saya adalah merancang dan mengimplementasikan solusi teknologi yang *scalable*,

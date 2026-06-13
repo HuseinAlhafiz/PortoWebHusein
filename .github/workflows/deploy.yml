@@ -1,75 +1,33 @@
-name: Deploy Website to Arenhost
+name: Deploy Website to Arenhost (SSH)
+
 on:
   push:
     branches:
       - main
+
 jobs:
   web-deploy:
-    name: Deploy Laravel App
+    name: Deploy Laravel App via SSH
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.3
         with:
-          fetch-depth: 0
-
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.2'
-          extensions: mbstring, xml, ctype, iconv, mysql, zip
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install Composer Dependencies
-        run: composer install --no-dev --optimize-autoloader --no-interaction --no-progress
-
-      - name: Install NPM Dependencies
-        run: npm install
-
-      - name: Build Assets (Vite)
-        run: npm run build
-
-      - name: Prepare Deploy Helpers
-        run: |
-          cp .deploy/clear.php public/clear.php
-          cp .deploy/link.php public/link.php
-
-      - name: Sync Files via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          security: loose
-          local-dir: ./
-          server-dir: public_html/
-          exclude: |
-            **/.git*
-            **/.git*/**
-            **/node_modules/**
-            **/vendor/**
-            **/venv-rembg/**
-            **/*.zip
-            **/*.py
-            **/.env*
-            **/tests/**
-            **/phpunit.xml
-            **/.editorconfig
-            **/postcss.config.js
-            **/tailwind.config.js
-            **/vite.config.js
-            **/.DS_Store
-            **/README.md
-            **/vercel.json
-            **/seed_data.php
-            **/.deploy/**
-
-      - name: Clear Laravel Cache
-        run: curl -sSL https://huseinalhafiz.my.id/clear.php || true
-
-      - name: Setup Storage Link
-        run: curl -sSL https://huseinalhafiz.my.id/link.php || true
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          passphrase:  ${{ secrets.SSH_PASSPHRASE }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          port: ${{ secrets.SSH_PORT || '22' }}
+          script: |
+            cd /home/huseinal/public_html
+            # Pastikan direktori aman untuk Git
+            git config --global --add safe.directory /home/huseinal/public_html
+            # Ambil update kode terbaru dari GitHub
+            git pull origin main
+            # Update PHP dependencies
+            if [ -f "composer.json" ]; then
+              composer install --no-dev --optimize-autoloader --no-interaction || true
+            fi
+            # Bersihkan cache Laravel
+            php artisan optimize:clear

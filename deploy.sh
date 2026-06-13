@@ -3,8 +3,13 @@
 # Pastikan jika ada error, script akan berhenti (kecuali yang di-handle)
 set -e
 
-# Prompt pesan commit dari user
-echo "=== Git Auto Deploy Helper ==="
+echo "=== Git Auto Deploy Helper (SSH) ==="
+
+# 1. Kompilasi aset Vite secara lokal agar masuk ke Git
+echo "Mengompilasi aset lokal (Vite)..."
+npm run build
+
+# 2. Prompt pesan commit dari user
 read -p "Masukkan pesan commit (kosongkan untuk default 'update: website changes'): " commit_message
 
 if [ -z "$commit_message" ]; then
@@ -43,7 +48,7 @@ else
     echo ""
     echo "============================================="
     echo "🎉 Sukses! Perubahan telah ter-push ke GitHub."
-    echo "Proses deploy otomatis (GitHub Actions) sedang berjalan."
+    echo "Proses deploy otomatis via SSH sedang berjalan."
     echo "Anda bisa memantaunya di: https://github.com/HuseinAlhafiz/PortoWebHusein/actions"
     echo "============================================="
 fi
