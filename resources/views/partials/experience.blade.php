@@ -10,7 +10,7 @@
             <details class="cv-details" {{ $loop->first ? 'open' : '' }}>
                 <summary class="cv-summary">
                     <div class="summary-content">
-                        @if($exp->image)
+                         @if($exp->image)
                             @php
                                 $isGunadarma = Str::contains($exp->image, 'gunadarma');
                                 $logoWidth = $isGunadarma ? '85px' : '65px';
@@ -19,12 +19,16 @@
                                 $marginLeft = $isGunadarma ? '-10px' : '0px';
                                 $marginTop = $isGunadarma ? '-10px' : '0px';
                                 $marginBottom = $isGunadarma ? '-10px' : '0px';
+
+                                if (Str::startsWith($exp->image, 'images/')) {
+                                    $expImgPath = asset($exp->image);
+                                } elseif (Str::contains($exp->image, '/')) {
+                                    $expImgPath = asset('storage/' . $exp->image);
+                                } else {
+                                    $expImgPath = asset('images/' . $exp->image);
+                                }
                             @endphp
-                            @if(Str::startsWith($exp->image, 'images/'))
-                                <img src="{{ asset($exp->image) }}" alt="{{ $exp->title }} Logo" class="exp-logo" style="width: {{ $logoWidth }}; height: {{ $logoHeight }}; margin-right: {{ $marginRight }}; margin-left: {{ $marginLeft }}; margin-top: {{ $marginTop }}; margin-bottom: {{ $marginBottom }};">
-                            @else
-                                <img src="{{ asset('storage/' . $exp->image) }}" alt="{{ $exp->title }} Logo" class="exp-logo" style="width: {{ $logoWidth }}; height: {{ $logoHeight }}; margin-right: {{ $marginRight }}; margin-left: {{ $marginLeft }}; margin-top: {{ $marginTop }}; margin-bottom: {{ $marginBottom }};">
-                            @endif
+                            <img src="{{ $expImgPath }}" alt="{{ $exp->title }} Logo" class="exp-logo" style="width: {{ $logoWidth }}; height: {{ $logoHeight }}; margin-right: {{ $marginRight }}; margin-left: {{ $marginLeft }}; margin-top: {{ $marginTop }}; margin-bottom: {{ $marginBottom }};">
                         @else
                             <div class="exp-logo" style="width: 65px; height: 65px; display:flex; align-items:center; justify-content:center; background: var(--bg-hover); border-radius: 8px;">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--text-lighter)" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>

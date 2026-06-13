@@ -8,7 +8,13 @@
             @forelse($educations as $edu)
                 @if($edu->image)
                     @php
-                        $imgPath = Str::startsWith($edu->image, 'images/') ? asset($edu->image) : asset('storage/' . $edu->image);
+                        if (Str::startsWith($edu->image, 'images/')) {
+                            $imgPath = asset($edu->image);
+                        } elseif (Str::contains($edu->image, '/')) {
+                            $imgPath = asset('storage/' . $edu->image);
+                        } else {
+                            $imgPath = asset('images/' . $edu->image);
+                        }
                         $isGunadarma = Str::contains($edu->image, 'gunadarma');
                         $logoHeight = $isGunadarma ? '120px' : '85px';
                     @endphp

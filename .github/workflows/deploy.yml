@@ -33,8 +33,10 @@ jobs:
       - name: Build Assets (Vite)
         run: npm run build
 
-      - name: Prepare Cache Clearer
-        run: cp .deploy/clear.php public/clear.php
+      - name: Prepare Deploy Helpers
+        run: |
+          cp .deploy/clear.php public/clear.php
+          cp .deploy/link.php public/link.php
 
       - name: Sync Files via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
@@ -66,4 +68,7 @@ jobs:
             **/.deploy/**
 
       - name: Clear Laravel Cache
-        run: curl -s https://huseinalhafiz.my.id/clear.php || true
+        run: curl -sSL https://huseinalhafiz.my.id/clear.php || true
+
+      - name: Setup Storage Link
+        run: curl -sSL https://huseinalhafiz.my.id/link.php || true
