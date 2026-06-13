@@ -4,7 +4,7 @@
             <span class="about-col-title">TENTANG SAYA</span>
             <h2 class="about-title" style="font-size: 2rem; margin-bottom: 1.5rem;">IT Project Management Officer &
                 Lulusan Sistem Informasi</h2>
-            <p class="about-text">Nixson Dominikus Tampubolon adalah seorang Pranata Komputer Intern (Magang Kemenaker)
+            <p class="about-text">Nixson Dominikus adalah seorang Pranata Komputer Intern (Magang Kemenaker)
                 di BPMP dan
                 sebelumnya pernah bekerja sebagai IT Project Management Officer di Kemdikbudristek dengan pengalaman
                 praktis sebagai Business Analyst, System Analyst, dan Quality Assurance dalam mengelola proyek

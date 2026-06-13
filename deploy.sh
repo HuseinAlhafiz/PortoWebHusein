@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Pastikan jika ada error, script akan berhenti
+# Pastikan jika ada error, script akan berhenti (kecuali yang di-handle)
 set -e
 
 # Prompt pesan commit dari user
@@ -15,17 +15,35 @@ fi
 echo "Mengumpulkan semua perubahan..."
 git add .
 
-# Git Commit
-echo "Melakukan commit dengan pesan: '$commit_message'..."
-git commit -m "$commit_message"
+# Cek apakah ada perubahan yang siap dicommit
+if git diff --cached --quiet; then
+    echo "---------------------------------------------"
+    echo "ℹ️ Tidak ada perubahan file yang baru untuk di-commit."
+    read -p "Apakah Anda ingin tetap memicu (trigger) deploy ulang ke live hosting? (y/n): " force_deploy
+    if [[ "$force_deploy" =~ ^[Yy]$ ]]; then
+        echo "Memicu redeploy dengan push kosong..."
+        git commit --allow-empty -m "trigger: redeploy website"
+        git push origin main
+        echo "============================================="
+        echo "🎉 Sukses memicu redeploy ke GitHub."
+        echo "Anda bisa memantaunya di: https://github.com/HuseinAlhafiz/PortoWebHusein/actions"
+        echo "============================================="
+    else
+        echo "Deployment dibatalkan."
+    fi
+else
+    # Melakukan commit
+    echo "Melakukan commit dengan pesan: '$commit_message'..."
+    git commit -m "$commit_message"
 
-# Git Push
-echo "Mengirim perubahan ke GitHub (branch main)..."
-git push origin main
+    # Melakukan push
+    echo "Mengirim perubahan ke GitHub (branch main)..."
+    git push origin main
 
-echo ""
-echo "============================================="
-echo "🎉 Sukses! Perubahan telah ter-push ke GitHub."
-echo "Proses deploy otomatis (GitHub Actions) sedang berjalan."
-echo "Anda bisa memantaunya di: https://github.com/HuseinAlhafiz/PortoWebHusein/actions"
-echo "============================================="
+    echo ""
+    echo "============================================="
+    echo "🎉 Sukses! Perubahan telah ter-push ke GitHub."
+    echo "Proses deploy otomatis (GitHub Actions) sedang berjalan."
+    echo "Anda bisa memantaunya di: https://github.com/HuseinAlhafiz/PortoWebHusein/actions"
+    echo "============================================="
+fi
