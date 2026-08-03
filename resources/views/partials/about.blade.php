@@ -1,7 +1,7 @@
 <section class="about" id="about">
     <div class="container about-wrapper">
         <div>
-            <span class="about-col-title">TENTANG SAYEEEee</span>
+            <span class="about-col-title">TENTANG SAYa</span>
             <h2 class="about-title" style="font-size: 2rem; margin-bottom: 1.5rem;">IT Project Management Officer &
                 Lulusan Sistem Informasi</h2>
             <p class="about-text">Nixson Dominikus adalah seorang Pranata Komputer Intern (Magang Kemenaker)
