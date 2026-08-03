@@ -18,6 +18,7 @@ class Portfolio extends Model
         'tech_stack',
         'is_featured',
         'sort_order',
+        'created_at',
     ];
 
     protected $casts = [

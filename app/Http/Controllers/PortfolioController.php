@@ -41,10 +41,15 @@ class PortfolioController extends Controller
             'tech_stack.*' => 'nullable|string|max:255',
             'is_featured' => 'boolean',
             'sort_order' => 'integer',
+            'created_at' => 'nullable|date',
         ]);
 
         if ($request->hasFile('image')) {
             $validated['image'] = $request->file('image')->store('portfolios', 'public');
+        }
+
+        if (!$request->filled('created_at')) {
+            unset($validated['created_at']);
         }
 
         $validated['is_featured'] = $request->boolean('is_featured');
@@ -94,6 +99,7 @@ class PortfolioController extends Controller
             'tech_stack.*' => 'nullable|string|max:255',
             'is_featured' => 'boolean',
             'sort_order' => 'integer',
+            'created_at' => 'nullable|date',
         ]);
 
         if ($request->hasFile('image')) {
@@ -101,6 +107,10 @@ class PortfolioController extends Controller
                 Storage::disk('public')->delete($portfolio->image);
             }
             $validated['image'] = $request->file('image')->store('portfolios', 'public');
+        }
+
+        if (!$request->filled('created_at')) {
+            unset($validated['created_at']);
         }
 
         $validated['is_featured'] = $request->boolean('is_featured');
