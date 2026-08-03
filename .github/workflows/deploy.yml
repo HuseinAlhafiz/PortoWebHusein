@@ -1,4 +1,4 @@
-name: Deploy Website to Arenhost (SSH)
+name: Deploy Website to Arenhost (Webhook)
 
 on:
   push:
@@ -7,27 +7,9 @@ on:
 
 jobs:
   web-deploy:
-    name: Deploy Laravel App via SSH
+    name: Trigger Deploy via Webhook
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy via SSH
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_KEY }}
-          passphrase:  ${{ secrets.SSH_PASSPHRASE }}
-          password: ${{ secrets.SSH_PASSWORD }}
-          port: ${{ secrets.SSH_PORT || '22' }}
-          script: |
-            cd /home/huseinal/public_html
-            # Pastikan direktori aman untuk Git
-            git config --global --add safe.directory /home/huseinal/public_html
-            # Ambil update kode terbaru dari GitHub
-            git pull origin main
-            # Update PHP dependencies
-            if [ -f "composer.json" ]; then
-              composer install --no-dev --optimize-autoloader --no-interaction || true
-            fi
-            # Bersihkan cache Laravel
-            php artisan optimize:clear
+      - name: Call deploy webhook
+        run: |
+          curl -f "https://huseinalhafiz.my.id/deploy-webhook.php?token=${{ secrets.DEPLOY_TOKEN }}"
